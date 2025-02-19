@@ -1,0 +1,43 @@
+button {
+  background-color: rgba(63, 81, 181, 255);
+}
+
+button:hover {
+  background-color: rgb(72, 93, 206);
+}
+
+.card {
+  margin: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.card-title {
+
+  font-size: 24px;
+  font-weight: bold;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.full-width {
+  width: 40%;
+}
+
+.small-width {
+  width: 150px;
+}
+
+mat-form-field {
+  display: block;
+  border-radius: 8px;
+  padding: 5px;
+  
+}
+
+
+
