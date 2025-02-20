@@ -1,14 +1,11 @@
-import { Routes } from '@angular/router';
-import {BooksComponent} from './pages/books/books.component';
+import {Routes} from '@angular/router';
+import {BookPageComponent} from './pages/book-page/book-page.component';
 
-export const routes: Routes = [
-  {
-    path: '',
-    redirectTo: 'book-shelf',
-    pathMatch: 'full',
-  },
-  {
-    path: 'book-shelf',
-    component: BooksComponent,
-  }
-];
+export const routes: Routes = [{
+  path: '',
+  redirectTo: 'books',
+  pathMatch: 'full',
+}, {
+  path: 'books',
+  component: BookPageComponent,
+}];

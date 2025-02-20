@@ -1,15 +1,14 @@
 import {Component} from '@angular/core';
-import {MatFormField, MatLabel} from "@angular/material/form-field";
-import {MatInput, MatInputModule} from "@angular/material/input";
-import {MatCard, MatCardActions} from "@angular/material/card";
+import {MatCard, MatCardActions} from '@angular/material/card';
+import {MatFormField, MatLabel} from '@angular/material/form-field';
+import {MatInput} from '@angular/material/input';
 
 @Component({
   selector: 'app-add-book',
   imports: [
-    MatFormField,
-    MatInputModule,
-    MatInput,
     MatCard,
+    MatFormField,
+    MatInput,
     MatCardActions,
     MatLabel
   ],

@@ -1,6 +1,7 @@
 <div class="nav justify-content-between align-content-center fs-4">
   <p>読んだ本</p>
   <p>一覧</p></div>
+
 <app-add-book></app-add-book>
 <mat-card *ngFor="let book of books" class="card">
   <mat-card-header>
@@ -11,4 +12,5 @@
     <button class="btn btn-danger">消除</button>
   </mat-card-actions>
 </mat-card>
+
 
