@@ -1,0 +1,10 @@
+<mat-card *ngFor="let book of books" class="card">
+  <mat-card-header>
+    <mat-card-title class="card-title"> {{ book.name }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="card-body">{{ book.detail }}<br>評価：{{ book.evaluation }} 点
+  </mat-card-content>
+  <mat-card-actions align="end">
+    <button class="btn btn-danger">消除</button>
+  </mat-card-actions>
+</mat-card>
