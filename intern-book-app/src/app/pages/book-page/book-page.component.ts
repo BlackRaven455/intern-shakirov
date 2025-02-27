@@ -1,24 +1,22 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle} from '@angular/material/card';
-import {NgForOf} from '@angular/common';
+import {NgForOf, NgIf} from '@angular/common';
 import {AddBookComponent} from '../../components/add-book/add-book.component';
-import {BOOKS} from '../../consts/books';
+import {bookList} from '../../consts/bookList';
+import {MatTabNavPanel} from '@angular/material/tabs';
+import {Book} from '../../types/book';
+import {BookCardComponent} from '../../components/book-card/book-card.component';
 
 @Component({
   selector: 'app-book-page',
   imports: [
-    MatCardActions,
-    MatCardContent,
-    MatCardTitle,
-    MatCardHeader,
-    NgForOf,
     AddBookComponent,
-    MatCard,
-    MatCardTitle
+    NgIf,
+    BookCardComponent
   ],
   templateUrl: './book-page.component.html',
   styleUrl: './book-page.component.css'
 })
 export class BookPageComponent {
-  books = BOOKS;
+  books = bookList;
 }

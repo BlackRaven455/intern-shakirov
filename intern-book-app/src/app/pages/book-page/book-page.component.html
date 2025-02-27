@@ -1,16 +1,5 @@
-<div class="nav justify-content-between align-content-center fs-4">
-  <p>読んだ本</p>
-  <p>一覧</p></div>
-
 <app-add-book></app-add-book>
-<mat-card *ngFor="let book of books" class="card">
-  <mat-card-header>
-    <mat-card-title class="card-title"> {{ book.name }}</mat-card-title>
-  </mat-card-header>
-  <mat-card-content class="card-body">{{ book.detail }}<br>評価：{{ book.evaluation }}</mat-card-content>
-  <mat-card-actions align="end">
-    <button class="btn btn-danger">消除</button>
-  </mat-card-actions>
-</mat-card>
-
-
+<div *ngIf="books.length === 0; else showBooks">データがありません</div>
+<ng-template #showBooks>
+  <app-book-card [books]="books"></app-book-card>
+</ng-template>
