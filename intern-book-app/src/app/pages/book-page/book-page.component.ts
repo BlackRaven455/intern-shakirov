@@ -19,8 +19,4 @@ import {BookCardComponent} from '../../components/book-card/book-card.component'
 })
 export class BookPageComponent {
   books = bookList;
-
-  deleteBook($event: Book) {
-    this.books.splice(this.books.indexOf($event), 1);
-  }
 }
