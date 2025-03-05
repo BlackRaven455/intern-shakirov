@@ -2,7 +2,9 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Book} from '../../types/book';
 import {MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle} from '@angular/material/card';
 import {NgForOf} from '@angular/common';
-import {bookList} from '../../consts/bookList';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {DialogConfirmComponent} from '../dialog-confirm/dialog-confirm.component';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-book-card',
@@ -21,7 +23,19 @@ export class BookCardComponent {
   @Input() books!: Book[];
   @Output() deleteBook = new EventEmitter<Book>();
 
+  constructor(public dialog: MatDialog) {
+  }
+
   delete(book: Book) {
-    this.deleteBook.emit(book);
+    this.openDialog().subscribe(result => {
+      if (result) {
+        this.deleteBook.emit(book);
+      }
+    });
+  }
+
+  openDialog(): Observable<boolean> {
+    let dialogRef = this.dialog.open(DialogConfirmComponent);
+    return dialogRef.afterClosed();
   }
 }
