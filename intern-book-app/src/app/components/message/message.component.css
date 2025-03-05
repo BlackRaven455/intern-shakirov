@@ -1,0 +1,13 @@
+.clear-button {
+  background-color: red;
+  color: white;
+}
+
+* {
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  width: 10%;
+}
