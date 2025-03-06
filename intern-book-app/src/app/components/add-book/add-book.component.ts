@@ -5,6 +5,7 @@ import {MatInput} from '@angular/material/input';
 import {FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {bookList} from '../../consts/bookList';
 import {Book} from '../../types/book';
+import {MessageService} from '../../services/message.service';
 
 @Component({
   selector: 'app-add-book',
@@ -23,10 +24,13 @@ import {Book} from '../../types/book';
 export class AddBookComponent {
   book: Book = {name: '', detail: '', evaluation: ''};
 
+  constructor(private messageService: MessageService) {
+  }
 
   addBook() {
     if (this.book.name && this.book.detail && this.book.evaluation) {
       bookList.push({...this.book});
+      this.messageService.add(this.book.name, `Added`)
       this.book = {name: '', detail: '', evaluation: ''};
       console.log('Book added:', bookList);
     } else {
