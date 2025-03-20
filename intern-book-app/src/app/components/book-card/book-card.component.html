@@ -1,19 +1,4 @@
-<mat-card class="card">
-  <mat-form-field>
-    <mat-label>Search filter:</mat-label>
-    <mat-select [(ngModel)]="searchTerm">
-      <mat-option value="name">書籍名</mat-option>
-      <mat-option value="score">評価点</mat-option>
-      <mat-option disabled value="genre">ジャンル(disabled)</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>書籍検索</mat-label>
-    <input #searchBox (input)="search(searchBox.value) " matInput placeholder="書籍名" type="text">
-  </mat-form-field>
-</mat-card>
-
-<mat-card *ngFor="let book of filteredBooks | async " class="card">
+<mat-card *ngFor="let book of books" class="card">
   <mat-card-header>
     <mat-card-title class="card-title"> {{ book.name }}</mat-card-title>
   </mat-card-header>

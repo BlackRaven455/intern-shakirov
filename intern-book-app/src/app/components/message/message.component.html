@@ -1,7 +1,5 @@
-<!--<button (click)="showContent()" mat-stroked-button>Show log</button>-->
-<p>
-  <mat-slide-toggle (click)="showContent()">Show log</mat-slide-toggle>
-</p>
+<button (click)="showContent()" mat-stroked-button>Show log</button>
+
 <div *ngIf="isVisible">
   <span *ngIf="messageService.messages.length === 0; else showMessages">No messages</span>
 
@@ -10,7 +8,6 @@
       <li *ngFor="let message of messageService.messages">{{ message }}</li>
     </ul>
   </ng-template>
-
 
   <button (click)="clear()" class="clear-button" mat-stroked-button>Clear log</button>
 </div>
