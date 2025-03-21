@@ -20,14 +20,7 @@ import {BookCardComponent} from '../../components/book-card/book-card.component'
 export class BookPageComponent {
   books = bookList;
 
-  // deleteBook(number: number) {
-  //   this.books.splice(number, 1);
-  // }
-  deleteBook(id: number) {
-    const updatedBookList = bookList.filter((book) => book.id !== id);
-    updatedBookList.forEach((book, index) => {
-      book.id = index
-    });
-    this.books = updatedBookList;
+  deleteBook($event: Book) {
+    this.books.splice(this.books.indexOf($event), 1);
   }
 }

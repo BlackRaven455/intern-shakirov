@@ -22,7 +22,7 @@ import {MessageService} from '../../services/message.service';
 })
 export class BookCardComponent {
   @Input() books!: Book[];
-  @Output() deleteBook = new EventEmitter<number>();
+  @Output() deleteBook = new EventEmitter<Book>();
 
   constructor(public dialog: MatDialog, public messageService: MessageService) {
   }
@@ -30,7 +30,7 @@ export class BookCardComponent {
   delete(book: Book) {
     this.openDialog().subscribe(result => {
       if (result) {
-        this.deleteBook.emit(book.id);
+        this.deleteBook.emit(book);
         this.messageService.add(book.name, `Deleted`)
       }
     });

@@ -4,9 +4,6 @@
   </mat-card-header>
   <mat-card-content class="card-body">{{ book.detail }}<br>評価：{{ book.evaluation }} 点
   </mat-card-content>
-  <mat-card-content class="genreList">
-    <span *ngFor="let genre of book.genreList" class="genre">{{ genre }}</span>
-  </mat-card-content>
   <mat-card-actions align="end">
     <button (click)="delete(book)" class="btn btn-danger">消除</button>
   </mat-card-actions>
