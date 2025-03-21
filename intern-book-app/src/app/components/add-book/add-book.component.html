@@ -16,6 +16,23 @@
       <input [(ngModel)]="book.evaluation" matInput name="evaluation" placeholder="評価点" required type="text">
     </mat-form-field>
 
+    <mat-form-field style="width: 40%">
+      <mat-label>ジャンル</mat-label>
+      <mat-select [formControl]="genres" multiple>
+        <mat-select-trigger>
+          {{ genres.value?.[0] || '' }}
+          @if ((genres.value?.length || 0) > 1) {
+            <span class="additional-selection">
+          (+{{ (genres.value?.length || 0) - 1 }} {{ genres.value?.length === 2 ? 'other' : 'others' }})
+        </span>
+          }
+        </mat-select-trigger>
+        @for (genre of genreList; track genre) {
+          <mat-option [value]="genre">{{ genre }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
     <mat-card-actions align="end">
       <button (click)="addBook()" class="btn btn-primary" type="button">追加</button>
     </mat-card-actions>
