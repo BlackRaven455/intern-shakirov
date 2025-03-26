@@ -31,7 +31,7 @@ export class BookCardComponent {
     this.openDialog().subscribe(result => {
       if (result) {
         this.deleteBook.emit(book.id);
-        this.messageService.add(book.name, `Deleted`)
+        this.messageService.add(book.name, `Deleted. id: ${book.id}`);
       }
     });
   }

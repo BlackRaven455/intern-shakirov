@@ -2,12 +2,21 @@ import {Component} from '@angular/core';
 import {MatCard, MatCardActions} from '@angular/material/card';
 import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
-import {FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import {bookList} from '../../consts/bookList';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  FormsModule, NgForm,
+  ReactiveFormsModule,
+  ValidationErrors,
+  Validators
+} from '@angular/forms';
 import {Book} from '../../types/book';
 import {MessageService} from '../../services/message.service';
 import {MatOption, MatSelect, MatSelectTrigger} from '@angular/material/select';
 import {genreList} from '../../consts/genreList';
+import {BookService} from '../../services/book.service';
+import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-add-book',
@@ -20,30 +29,39 @@ import {genreList} from '../../consts/genreList';
     FormsModule,
     ReactiveFormsModule,
     MatSelect,
-    MatOption, MatSelectTrigger,
+    MatOption, MatSelectTrigger, NgIf,
   ],
   templateUrl: './add-book.component.html',
   styleUrl: './add-book.component.css'
 })
 export class AddBookComponent {
-  book: Book = {id: -1, name: '', detail: '', evaluation: '', genreList: [],};
-  genres = new FormControl([``]);
   genreList: string[] = genreList;
+  book: Book = {
+    id: -1,
+    name: '',
+    detail: '',
+    evaluation: '',
+    genreList: [],
+  };
+  bookForm = new FormGroup({
+    name: new FormControl(this.book.name, [Validators.required]),
+    detail: new FormControl(this.book.detail, [Validators.required]),
+    evaluation: new FormControl(this.book.evaluation, [Validators.required]),
+    genreList: new FormControl(this.book.genreList, [Validators.required, this.validateGenreList]),
+  }, {updateOn: 'submit'});
 
-  constructor(private messageService: MessageService) {
+  constructor(private messageService: MessageService, private bookService: BookService) {
   }
+
+  validateGenreList(control: AbstractControl): ValidationErrors | null {
+    return control.value && control.value.length > 0 ? null : {required: true};
+  }
+
 
   addBook() {
-    if (this.book.name && this.book.detail && this.book.evaluation) {
-      this.book.genreList = this.genres?.value || [];
-      this.book.id = bookList.length;
-      bookList.push({...this.book});
-      this.messageService.add(this.book.name, `Added`)
-      this.book = {id: -1, name: '', detail: '', evaluation: '', genreList: [],};
-      this.genres = new FormControl([``]);
-      console.log('Book added:', bookList);
-    } else {
-      alert('すべての項目を入力してください');
-    }
+    this.bookService.addBook(this.book);
+    this.bookForm.reset();
+    console.log('Book added:', this.book);
   }
+
 }
