@@ -1,5 +1,12 @@
 <app-add-book></app-add-book>
 <div *ngIf="books.length === 0; else showBooks">データがありません</div>
 <ng-template #showBooks>
-  <app-book-card (deleteBook)="deleteBook($event)" [books]="books"></app-book-card>
+  <app-book-card (deleteBook)="deleteBook($event)" *ngFor="let book of paginatedBooks" [book]="book"></app-book-card>
 </ng-template>
+<mat-paginator (page)="updatePagination()"
+               [length]="books.length"
+               [pageSizeOptions]="[5, 10]"
+               [pageSize]="pageSize"
+               aria-label="Select page">
+
+</mat-paginator>

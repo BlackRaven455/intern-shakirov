@@ -6,7 +6,7 @@ import {
   AbstractControl,
   FormControl,
   FormGroup,
-  FormsModule, NgForm,
+  FormsModule,
   ReactiveFormsModule,
   ValidationErrors,
   Validators
@@ -29,7 +29,9 @@ import {NgIf} from '@angular/common';
     FormsModule,
     ReactiveFormsModule,
     MatSelect,
-    MatOption, MatSelectTrigger, NgIf,
+    MatOption,
+    MatSelectTrigger, // 開業するのがbetter
+    NgIf, // 開業するのがbetter
   ],
   templateUrl: './add-book.component.html',
   styleUrl: './add-book.component.css'
@@ -60,6 +62,7 @@ export class AddBookComponent {
 
   addBook() {
     this.bookService.addBook(this.book);
+    this.messageService.add(this.book.name, `Add book with NAME:`);
     this.bookForm.reset();
     console.log('Book added:', this.book);
   }
