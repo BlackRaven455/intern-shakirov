@@ -1,37 +1,51 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle} from '@angular/material/card';
+import {AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {NgForOf, NgIf} from '@angular/common';
 import {AddBookComponent} from '../../components/add-book/add-book.component';
-import {bookList} from '../../consts/bookList';
-import {MatTabNavPanel} from '@angular/material/tabs';
 import {Book} from '../../types/book';
 import {BookCardComponent} from '../../components/book-card/book-card.component';
 import {BookService} from '../../services/book.service';
+import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-book-page',
   imports: [
     AddBookComponent,
     NgIf,
-    BookCardComponent
+    BookCardComponent,
+    NgForOf,
+    MatPaginator,
   ],
   templateUrl: './book-page.component.html',
   styleUrl: './book-page.component.css'
 })
-export class BookPageComponent implements OnInit {
+export class BookPageComponent implements OnInit, AfterViewInit {
   books: Book[] = [];
+  paginatedBooks: Book[] = [];
+  pageSize = 5;
+  pageIndex = 0;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(public bookService: BookService) {
+  constructor(public bookService: BookService, private ref: ChangeDetectorRef) {
   }
 
   ngOnInit() {
     this.bookService.getBooks().subscribe(updatedBooks => {
       this.books = updatedBooks;
-    });
+    })
   }
 
+  ngAfterViewInit() {
+    this.updatePagination();
+    this.ref.detectChanges();
+  }
 
   deleteBook(bookId: number) {
     this.bookService.removeBook(bookId);
+    this.updatePagination();
+  }
+
+  updatePagination() {
+    const start = this.paginator.pageIndex * this.paginator.pageSize;
+    this.paginatedBooks = this.books.slice(start, start + this.paginator.pageSize);
   }
 }

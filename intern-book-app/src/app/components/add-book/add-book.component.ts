@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {MatCard, MatCardActions} from '@angular/material/card';
 import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
@@ -6,7 +6,7 @@ import {
   AbstractControl,
   FormControl,
   FormGroup,
-  FormsModule, NgForm,
+  FormsModule,
   ReactiveFormsModule,
   ValidationErrors,
   Validators
@@ -29,13 +29,16 @@ import {NgIf} from '@angular/common';
     FormsModule,
     ReactiveFormsModule,
     MatSelect,
-    MatOption, MatSelectTrigger, NgIf,
+    MatOption,
+    MatSelectTrigger, // 開業するのがbetter
+    NgIf, // 開業するのがbetter
   ],
   templateUrl: './add-book.component.html',
   styleUrl: './add-book.component.css'
 })
 export class AddBookComponent {
   genreList: string[] = genreList;
+  @Output() refresh: EventEmitter<void> = new EventEmitter();
   book: Book = {
     id: -1,
     name: '',
@@ -60,7 +63,9 @@ export class AddBookComponent {
 
   addBook() {
     this.bookService.addBook(this.book);
+    this.messageService.add(this.book.name, `Add book with NAME:`);
     this.bookForm.reset();
+    this.refresh.emit();
     console.log('Book added:', this.book);
   }
 

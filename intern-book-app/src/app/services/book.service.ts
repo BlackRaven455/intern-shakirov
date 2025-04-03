@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {Book} from '../types/book';
 import {bookList} from '../consts/bookList';
 import {BehaviorSubject} from 'rxjs';
-import {MessageService} from './message.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,14 +13,12 @@ export class BookService {
   private bookListSubject = new BehaviorSubject<Book[]>(this.bookList);
   bookList$ = this.bookListSubject.asObservable();
 
-  constructor(private messageService: MessageService) {
+  constructor() {
   }
 
   addBook(book: Book) {
-
     book.id = this.generateUniqueId();
-    this.messageService.add(book.name, `Add book with ID: ${book.id} and NAME:`);
-    this.bookList.push(book);
+    this.bookList.push({...book});
     this.bookListSubject.next([...this.bookList]);
   }
 
