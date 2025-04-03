@@ -18,7 +18,7 @@ export class BookService {
 
   addBook(book: Book) {
     book.id = this.generateUniqueId();
-    this.bookList.push(book);
+    this.bookList.push({...book});
     this.bookListSubject.next([...this.bookList]);
   }
 

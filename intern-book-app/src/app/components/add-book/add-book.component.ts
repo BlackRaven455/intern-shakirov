@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {MatCard, MatCardActions} from '@angular/material/card';
 import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
@@ -38,6 +38,7 @@ import {NgIf} from '@angular/common';
 })
 export class AddBookComponent {
   genreList: string[] = genreList;
+  @Output() refresh: EventEmitter<void> = new EventEmitter();
   book: Book = {
     id: -1,
     name: '',
@@ -64,6 +65,7 @@ export class AddBookComponent {
     this.bookService.addBook(this.book);
     this.messageService.add(this.book.name, `Add book with NAME:`);
     this.bookForm.reset();
+    this.refresh.emit();
     console.log('Book added:', this.book);
   }
 

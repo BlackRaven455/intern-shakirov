@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {NgForOf, NgIf} from '@angular/common';
 import {AddBookComponent} from '../../components/add-book/add-book.component';
 import {Book} from '../../types/book';
@@ -13,7 +13,7 @@ import {MatPaginator} from '@angular/material/paginator';
     NgIf,
     BookCardComponent,
     NgForOf,
-    MatPaginator
+    MatPaginator,
   ],
   templateUrl: './book-page.component.html',
   styleUrl: './book-page.component.css'
@@ -22,27 +22,26 @@ export class BookPageComponent implements OnInit, AfterViewInit {
   books: Book[] = [];
   paginatedBooks: Book[] = [];
   pageSize = 5;
+  pageIndex = 0;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-
-  constructor(public bookService: BookService) {
+  constructor(public bookService: BookService, private ref: ChangeDetectorRef) {
   }
 
   ngOnInit() {
-    setTimeout(() => {
-      this.bookService.getBooks().subscribe(updatedBooks => {
-        this.books = updatedBooks;
-        this.updatePagination();
-      });
-    });
+    this.bookService.getBooks().subscribe(updatedBooks => {
+      this.books = updatedBooks;
+    })
   }
 
   ngAfterViewInit() {
     this.updatePagination();
+    this.ref.detectChanges();
   }
 
   deleteBook(bookId: number) {
     this.bookService.removeBook(bookId);
+    this.updatePagination();
   }
 
   updatePagination() {
